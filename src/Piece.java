@@ -7,82 +7,97 @@ public class Piece {
     private String curSquare;
     private int boardPos;
 
-    public Piece (String _type, String _color, String _curSquare) {
+    public Piece(String _type, String _color, String _curSquare) {
 
-	type = _type;
-	color = _color;
-	curSquare = _curSquare;
+        type = _type;
+        color = _color;
+        curSquare = _curSquare;
 
-	int file = (curSquare.charAt(0) - 'a');
-	int rank = Character.getNumericValue(curSquare.charAt(1)) - 1;
+        int file = (curSquare.charAt(0) - 'a');
+        int rank = Character.getNumericValue(curSquare.charAt(1)) - 1;
 
-	boardPos = ((Board.NUM_FILES * rank) + file);
+        boardPos = ((Board.NUM_FILES * rank) + file);
 
-	//	System.out.println(color+" "+type+" "+curSquare+" "+boardPos);
+        // System.out.println(color+" "+type+" "+curSquare+" "+boardPos);
 
     }
 
-    //copy constructor
-    public Piece (Piece copy) {
-	this(copy.type, copy.color, copy.curSquare);
+    // copy constructor
+    public Piece(Piece copy) {
+        this(copy.type, copy.color, copy.curSquare);
     }
 
-    public String getType() { return type; }
-    public String getColor() { return color; }
-    public String getSquare() { return curSquare; }
-    public int getBoardPos() { return boardPos; }
-    public boolean isNull() { return type.equals("null"); }
+    public String getType() {
+        return type;
+    }
 
-    //pieceList move
+    public String getColor() {
+        return color;
+    }
+
+    public String getSquare() {
+        return curSquare;
+    }
+
+    public int getBoardPos() {
+        return boardPos;
+    }
+
+    public boolean isNull() {
+        return type.equals("null");
+    }
+
+    // pieceList move
     public boolean movePiece(String start, String end) {
 
-	if (!start.equals(curSquare)) {
-	    return false;
-	}
+        if (!start.equals(curSquare)) {
+            return false;
+        }
 
-	int file = (end.charAt(0) - 'a');
-	int rank = Character.getNumericValue(end.charAt(1)) - 1;
+        int file = (end.charAt(0) - 'a');
+        int rank = Character.getNumericValue(end.charAt(1)) - 1;
 
-	boardPos = ((8 * rank) + file);
+        boardPos = ((8 * rank) + file);
 
-	curSquare = end;
-	return true;
+        curSquare = end;
+        return true;
 
     }
 
-    //board-centric move. start must be nullified after this
+    // board-centric move. start must be nullified after this
     public boolean movePiece(Piece start) {
-	if (start.getType().equals("null")) {
-	    return false; //null pieces dont move
-	}
-	type = start.getType();
-	color = start.getColor();
+        if (start.getType().equals("null")) {
+            return false; // null pieces dont move
+        }
+        type = start.getType();
+        color = start.getColor();
 
-	return true;
+        return true;
     }
 
     // this is for the board-centric rep
     // to be used to move a piece
     public void nullify() {
-	type = "null";
-	color = "null";
+        type = "null";
+        color = "null";
     }
 
     public void capturePiece() {
 
-	curSquare = "captured";
-	boardPos = -1;
+        curSquare = "captured";
+        boardPos = -1;
     }
 
     public boolean isCaptured() {
 
-	if (curSquare.equals("captured")) return true;
+        if (curSquare.equals("captured"))
+            return true;
 
-	return false;
+        return false;
     }
 
     public void printPiece() {
-	System.out.println(color+" "+type+" "+curSquare);
+        System.out.println(color + " " + type + " " + curSquare);
     }
 
 }
